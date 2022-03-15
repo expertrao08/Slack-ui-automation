@@ -1,0 +1,178 @@
+{
+  "stats": {
+    "suites": 1,
+    "tests": 3,
+    "passes": 3,
+    "pending": 0,
+    "failures": 0,
+    "start": "2022-03-15T05:26:23.446Z",
+    "end": "2022-03-15T05:27:31.727Z",
+    "duration": 68281,
+    "testsRegistered": 3,
+    "passPercent": 100,
+    "pendingPercent": 0,
+    "other": 0,
+    "hasOther": false,
+    "skipped": 0,
+    "hasSkipped": false
+  },
+  "results": [
+    {
+      "uuid": "f231abc4-55c3-4711-ad23-f836b448cc3c",
+      "title": "",
+      "fullFile": "C:\\Git\\slack_auto\\Slack-ui-automation\\Slack-ui-automation\\test\\slack-ui-test.js",
+      "file": "\\test\\slack-ui-test.js",
+      "beforeHooks": [],
+      "afterHooks": [],
+      "tests": [],
+      "suites": [
+        {
+          "uuid": "367bd58e-62d6-4fed-b358-988ac25d41ac",
+          "title": " Add slack UI test",
+          "fullFile": "C:\\Git\\slack_auto\\Slack-ui-automation\\Slack-ui-automation\\test\\slack-ui-test.js",
+          "file": "\\test\\slack-ui-test.js",
+          "beforeHooks": [
+            {
+              "title": "\"before all\" hook in \" Add slack UI test\"",
+              "fullTitle": " Add slack UI test \"before all\" hook in \" Add slack UI test\"",
+              "timedOut": null,
+              "duration": 14305,
+              "state": null,
+              "speed": null,
+              "pass": false,
+              "fail": false,
+              "pending": null,
+              "context": null,
+              "code": "// launch browser\ndriver = await new Builder().forBrowser('chrome').build();\nawait login();",
+              "err": {},
+              "uuid": "28c800b4-d8af-4f68-9878-8eb771c6437b",
+              "parentUUID": null,
+              "isHook": true,
+              "skipped": false
+            }
+          ],
+          "afterHooks": [
+            {
+              "title": "\"after all\" hook in \" Add slack UI test\"",
+              "fullTitle": " Add slack UI test \"after all\" hook in \" Add slack UI test\"",
+              "timedOut": null,
+              "duration": 4290,
+              "state": null,
+              "speed": null,
+              "pass": false,
+              "fail": false,
+              "pending": null,
+              "context": null,
+              "code": "//closing browser\nawait driver.close();\nawait driver.quit();",
+              "err": {},
+              "uuid": "7797db46-0133-4844-a17c-c15a7511bb89",
+              "parentUUID": null,
+              "isHook": true,
+              "skipped": false
+            }
+          ],
+          "tests": [
+            {
+              "title": "sending message to channel",
+              "fullTitle": " Add slack UI test sending message to channel",
+              "timedOut": null,
+              "duration": 12919,
+              "state": "passed",
+              "speed": "slow",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "let messageBox = await driver.findElement(By.css('div[data-qa=\"message_input\"] > div.ql-editor.ql-blank'));\nawait messageBox.sendKeys(message, Key.RETURN);\nawait driver.sleep(2000);\nlet messageboxValue = await driver.findElement(By.css('.c-message_kit__message.p-message_pane_message__message--last'));\nawait messageboxValue.click();\nawait driver.sleep(5000);\nlet savedMsgButton = messageboxValue.findElement(By.css('.c-icon.c-icon--bookmark'));\nawait savedMsgButton.click();\nawait driver.sleep(5000);",
+              "err": {},
+              "uuid": "ba5e90a9-3985-49a4-8f4b-98d80484fc87",
+              "parentUUID": null,
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "checking saved item in sidebar",
+              "fullTitle": " Add slack UI test checking saved item in sidebar",
+              "timedOut": null,
+              "duration": 5304,
+              "state": "passed",
+              "speed": "slow",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "let saveitem = await driver.findElement(By.id('Psaved'));\nawait saveitem.click();\nawait driver.sleep(5000);\nlet saveBody = await driver.findElement(By.css('.p-workspace__primary_view_body'));\nlet saveBodyListItem = await saveBody.findElement(By.css('.p-saved_page__item--first'));\nlet text = await saveBodyListItem.findElement(By.css('.p-rich_text_block')).getText();\nconsole.log(\" text \" + text);\ntext.should.equal(message);",
+              "err": {},
+              "uuid": "674beacd-a009-4090-b4bd-f640a5e7676c",
+              "parentUUID": null,
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "search message in search bar",
+              "fullTitle": " Add slack UI test search message in search bar",
+              "timedOut": null,
+              "duration": 28051,
+              "state": "passed",
+              "speed": "slow",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "await driver.sleep(5000);\nlet searchBox = await driver.findElement(By.css('.p-top_nav__search__text')).click();\nlet searchInput = await driver.findElement(By.css('.c-search__input_box'));\nlet messageField = await searchInput.findElement(By.css('.ql-editor'));\nawait messageField.sendKeys(serachValue, Key.RETURN);\nawait driver.sleep(15000);\nlet messageCount;\nfor (let index = 0; index < 100; index++) {\n    messageCount = await driver.findElement(By.css('button[id=\"messages\"] > span.c-tabs__tab_count')).getText();\n    console.log('messageCount ' + messageCount);\n    if (messageCount > 0) {\n        break;\n    }\n    await driver.navigate().refresh();\n}\nif (messageCount > 0) {\n    let messageGroup = await driver.findElements(By.css('.c-message_kit__hover'));\n    console.log(messageGroup.length);\n    if (messageGroup.length > 0) {\n        let text = await messageGroup[0].findElement(By.css('.c-message__message_blocks')).getText();\n        console.log('Text value = ' + text);\n        text.should.equal(message);\n        await driver.sleep(5000);\n    }\n    let buttonClose = await driver.findElement(By.css('button[data-qa=\"search_page_close_button\"]')).click();\n    await driver.sleep(1000);\n    let buttonsearch = await driver.findElement(By.css('button[data-qa=\"top_nav_search_clear\"]')).click();\n    await driver.sleep(1000);\n}\nelse {\n    throw new Error('No search found');\n}",
+              "err": {},
+              "uuid": "564fb6ca-7eb4-4e28-9317-4c4634d4f4cd",
+              "parentUUID": null,
+              "isHook": false,
+              "skipped": false
+            }
+          ],
+          "suites": [],
+          "passes": [
+            "ba5e90a9-3985-49a4-8f4b-98d80484fc87",
+            "674beacd-a009-4090-b4bd-f640a5e7676c",
+            "564fb6ca-7eb4-4e28-9317-4c4634d4f4cd"
+          ],
+          "failures": [],
+          "pending": [],
+          "skipped": [],
+          "duration": 46274,
+          "root": false,
+          "rootEmpty": false,
+          "_timeout": null
+        }
+      ],
+      "passes": [],
+      "failures": [],
+      "pending": [],
+      "skipped": [],
+      "duration": 0,
+      "root": true,
+      "rootEmpty": true,
+      "_timeout": 0
+    }
+  ],
+  "meta": {
+    "mocha": {
+      "version": "9.2.2"
+    },
+    "mochawesome": {
+      "options": {
+        "quiet": false,
+        "reportFilename": "mochawesome",
+        "saveHtml": true,
+        "saveJson": true,
+        "consoleReporter": "spec",
+        "useInlineDiffs": false,
+        "code": true
+      },
+      "version": "7.1.2"
+    },
+    "marge": {
+      "options": {
+        "reportDir": "TestResults"
+      },
+      "version": "6.1.1"
+    }
+  }
+}

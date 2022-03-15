@@ -1,0 +1,26 @@
+{
+  "name": "slack-ui-automation",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha --no-timeouts --parallel --reporter mochawesome --require mochawesome/register --reporter-options reportDir=TestResults"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/expertrao08/Slack-ui-automation.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/expertrao08/Slack-ui-automation/issues"
+  },
+  "homepage": "https://github.com/expertrao08/Slack-ui-automation#readme",
+  "dependencies": {
+    "chai": "^4.3.6",
+    "mocha": "^9.2.2",
+    "mochawesome": "^7.1.2",
+    "node": "^17.7.1",
+    "selenium-webdriver": "^4.1.1"
+  }
+}
